@@ -1,0 +1,138 @@
+@layer components {
+  .about-capabilities {
+    --operations-green: #0f440e;
+    --operations-lime: #bfde7d;
+    background: var(--operations-green);
+    color: #8ebc29;
+    display: flex;
+    min-height: 100svh;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(20px, 3svh, 36px) 3.385417cqw;
+  }
+  .capabilities-heading {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(20px, 2cqw, 40px);
+  }
+  .capabilities-heading h2,
+  .capabilities-heading h3,
+  .capability-card h4 {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-synthesis: none;
+    font-kerning: normal;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+  .capabilities-heading h2 {
+    padding-left: 0.36849cqw;
+    font-size: clamp(42px, min(4.3cqw, 8svh), 84px);
+    line-height: 1;
+  }
+  .capabilities-heading h3 {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    font-size: clamp(28px, min(3.5cqw, 5.5svh), 64px);
+    line-height: 1.2;
+  }
+  .capabilities-intro {
+    margin-top: 12px;
+    color: var(--operations-lime);
+    font-family: var(--font-paragraph);
+    font-size: clamp(14px, min(1.2cqw, 2.2svh), 22px);
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .capabilities-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: min(3svh, 24px);
+    padding: 10px;
+    border-radius: 32px;
+    background: var(--operations-lime);
+  }
+  .capability-card {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 24px;
+    background: var(--operations-green);
+  }
+  .capability-card-media {
+    aspect-ratio: 16 / 10;
+    max-height: 36svh;
+    overflow: hidden;
+    border-radius: 18px;
+    background: var(--operations-green);
+  }
+  .capability-card-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 450ms ease;
+  }
+  /* Keep small supplied artwork at its native size instead of stretching it. */
+  .capability-card-media-native { display: grid; place-items: center; }
+  .capability-card-media-native img { transform: none; }
+  .capability-card-copy {
+    flex: 1;
+    min-height: 0;
+    padding: 14px 12px;
+    border-radius: 18px;
+    background: var(--operations-lime);
+    color: var(--operations-green);
+    text-align: center;
+  }
+  .capability-card h4 {
+    font-size: clamp(20px, min(1.6cqw, 3.1svh), 30px);
+    line-height: 1.15;
+  }
+  .capability-card-copy p {
+    margin-top: 8px;
+    font-family: var(--font-paragraph);
+    font-size: clamp(13px, min(1.1cqw, 1.9svh), 18px);
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  @media (min-width: 1001px) {
+    .about-capabilities { height: 100svh; min-height: 600px; justify-content: flex-start; }
+    .capabilities-heading { flex-shrink: 0; }
+    .capabilities-grid { flex: 1; min-height: 0; grid-template-rows: minmax(0, 1fr) auto; }
+    /* Shared caption row keeps all three images and text panels aligned. */
+    .capability-card { display: grid; grid-row: span 2; grid-template-rows: subgrid; min-height: 0; }
+    .capability-card-media { min-height: 0; max-height: none; aspect-ratio: auto; }
+    .capability-card-copy { flex: none; }
+  }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .capability-card:hover .capability-card-media:not(.capability-card-media-native) img { transform: scale(1.025); }
+  }
+  @media (max-width: 1000px) {
+    .about-capabilities { min-height: 0; padding: 32px 24px; }
+    .capabilities-heading { gap: 24px; }
+    .capabilities-heading h2 { padding-left: 0; font-size: clamp(32px, 5.4vw, 56px); line-height: 1.15; }
+    .capabilities-heading h3 { gap: 0; font-size: clamp(27px, 4.8vw, 46px); line-height: 1.2; }
+    .capabilities-intro { margin-top: 16px; font-size: 16px; line-height: 1.5; }
+    .capabilities-grid { gap: 8px; margin-top: 24px; padding: 8px; border-radius: 28px; }
+    .capability-card { gap: 8px; padding: 8px; border-radius: 22px; }
+    .capability-card-media, .capability-card-copy { border-radius: 16px; }
+    .capability-card-media { max-height: none; }
+    .capability-card-copy { min-height: 0; padding: 16px 12px; }
+    .capability-card h4 { font-size: clamp(16px, 2.3vw, 24px); line-height: 1.35; }
+    .capability-card-copy p { margin-top: 10px; font-size: 14px; line-height: 1.5; }
+  }
+  @media (max-width: 720px) {
+    .about-capabilities { padding: 32px 16px; }
+    .capabilities-heading { grid-template-columns: 1fr; }
+    .capabilities-heading h3 { font-size: clamp(27px, 6.7vw, 40px); }
+    .capabilities-grid { grid-template-columns: 1fr; max-width: 480px; margin-inline: auto; }
+    .capability-card-copy { min-height: 0; padding: 18px 16px; }
+    .capability-card h4 { font-size: clamp(20px, 6vw, 24px); }
+    .capability-card-copy p { font-size: 16px; }
+  }
+}

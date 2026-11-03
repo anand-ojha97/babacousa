@@ -1,0 +1,23 @@
+# Apache / LiteSpeed: install beside index.html at the subdomain document root.
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType video/mp4 .mp4
+  AddType video/webm .webm
+</IfModule>
+
+# Revalidate the entry page so future uploads load the current JS/CSS bundle.
+<IfModule mod_headers.c>
+  <FilesMatch "^index\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+RewriteEngine On
+
+# A missing media file must return 404 instead of the React HTML page.
+RewriteRule ^(?:assets|images|videos|products|fonts|categories)(?:/|$) - [L,NC]
+
+# Existing files are served normally; page URLs are handled by React Router.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [L]

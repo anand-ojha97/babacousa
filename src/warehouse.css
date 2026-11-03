@@ -1,0 +1,56 @@
+/* Desktop measurements follow the supplied 1920 x 953 warehouse design.
+   On smaller screens the same content and image stack in normal reading order. */
+.warehouse-section { padding-top: 32px; }
+.warehouse-section-background { display: none; }
+.warehouse-heading { padding-inline: 24px; }
+.warehouse-title { font-size: clamp(28px, 4.6vw, 46px); line-height: 1.1; }
+.warehouse-media { width: calc(100% - 48px); margin: 24px auto 0; }
+.warehouse-photo {
+  position: relative;
+  aspect-ratio: 908 / 580;
+  overflow: hidden;
+  border-radius: 28px;
+}
+.warehouse-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 650ms cubic-bezier(.22,1,.36,1), filter 650ms ease;
+}
+.warehouse-copy { padding: 28px 24px 40px; }
+.warehouse-copy-list { display: grid; gap: 32px; }
+.warehouse-stage-title { font-size: 27px; line-height: 1.2; }
+.warehouse-stage-copy { margin-top: 10px; font-size: 16px; line-height: 1.55; }
+@media (min-width: 1002px) {
+  .warehouse-section { min-height: 49.635417cqw; padding: 0; }
+  .warehouse-section-background { display: block; position: absolute; inset: 13.125cqw 0 0; }
+  .warehouse-heading { position: absolute; left: 3.7328cqw; top: 3.10885cqw; padding: 0; }
+  .warehouse-title { font-size: 5.276563cqw; line-height: 1; }
+  .warehouse-media {
+    position: absolute;
+    left: 38.9573cqw;
+    top: 9.955729cqw;
+    width: 57.3969cqw;
+    margin: 0;
+  }
+  .warehouse-photo { border-radius: 3.125cqw; }
+  .warehouse-copy { position: absolute; left: 3.7328cqw; top: 15.8656cqw; width: 32cqw; padding: 0; }
+  .warehouse-copy-list { gap: 3.7cqw; }
+  .warehouse-stage-title { font-size: 2.65625cqw; line-height: 1.15; }
+  .warehouse-copy-line { display: block; }
+  .warehouse-stage-copy { margin-top: .234375cqw; font-size: 1.041667cqw; line-height: 1.2; }
+}
+@media (max-width: 640px) {
+  .warehouse-title { font-size: clamp(25px, 6.8vw, 34px); }
+  .warehouse-media { width: calc(100% - 32px); }
+}
+@media (hover: hover) and (pointer: fine) {
+  .warehouse-photo:hover img { transform: scale(1.035); filter: brightness(1.025); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .warehouse-photo img { transition: none; }
+  .warehouse-photo:hover img { transform: none; }
+}

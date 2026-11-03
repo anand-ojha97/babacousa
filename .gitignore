@@ -1,0 +1,17 @@
+# Installed by npm; recreated with npm ci.
+node_modules/
+# Generated with npm run build.
+dist/
+# Local configuration, caches, and logs.
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+# Keep downloaded archives outside your Git repository.
+*.zip
+
+# Temporary compiled Node test bundle.
+.test-build/

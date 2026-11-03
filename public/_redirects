@@ -1,0 +1,2 @@
+# Serve the SPA when no existing static file matches (Netlify-compatible).
+/* /index.html 200

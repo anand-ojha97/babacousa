@@ -1,0 +1,62 @@
+/* The page fills the available width; content sections grow with their copy.
+   Do not constrain the timeline or brand directory to one screen of height. */
+.site-layout main,
+.site-layout section,
+.site-layout footer {
+  min-width: 0;
+  max-width: 100%;
+}
+.site-layout section > *,
+.site-layout footer > * {
+  min-width: 0;
+}
+
+/* Banners preserve the reference ratio until screen height becomes the limit.
+   svh stays stable when a phone's address bar expands or collapses. */
+.site-layout .page-hero {
+  height: min(49.635417cqw, 100svh);
+  min-height: 0;
+  aspect-ratio: auto;
+}
+@media (width < 1001px) {
+  .site-layout .page-hero:not(#home) {
+    height: min(max(420px, 49.635417cqw), 100svh);
+  }
+}
+@media (max-width: 640px) {
+  .site-layout .page-hero:not(#home) { height: min(max(440px, 125cqw), 100svh); }
+  .site-layout .page-hero#home { height: min(105cqw, 100svh); }
+}
+/* Reframe the photograph when a wide/short viewport limits banner height. */
+@media (min-aspect-ratio: 1920/953) {
+  .site-layout .page-hero h1:not(.sr-only) {
+    top: auto;
+    bottom: 10%;
+    font-size: min(5.78125cqw, 12svh);
+  }
+  .site-layout .page-hero > img {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+@media (min-aspect-ratio: 1920/953) and (width < 1001px) {
+  .site-layout .page-hero h1:not(.sr-only) {
+    font-size: min(clamp(30px, 5.4vw, 65px), 12svh);
+  }
+}
+
+/* Compact single-category presentation on phones. */
+@media (max-width: 640px) {
+  #brands .brand-category-carousel { height: 310px; min-height: 0; margin-top: 12px; }
+  #brands .orbit-slide[aria-hidden="true"] { display: none; }
+  #brands .orbit-slide:not([aria-hidden="true"]) {
+    width: 80%; height: 100%; padding-top: 0;
+    transform: translateX(-50%); opacity: 1;
+  }
+  #brands .orbit-slide > [data-media-state] { height: 300px; min-height: 0; }
+  #brands > a { margin-top: 8px; }
+}

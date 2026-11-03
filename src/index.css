@@ -1,0 +1,599 @@
+@import "tailwindcss";
+@import "./header.css";
+@import "./responsive.css";
+@import "./warehouse.css";
+@import "./about-capabilities.css";
+@import "./people.css";
+@import "./contact.css";
+@import "./home-banner.css";
+
+@font-face {
+  font-family: "MulaR";
+  src: local("Mula R Bold"), local("MulaR-Bold"), url("/fonts/MulaR-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MulaR";
+  src: local("Mula R ExtraBold"), local("MulaR-ExtraBold"), url("/fonts/MulaR-ExtraBold.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MulaR";
+  src: local("Mula R Black"), local("MulaR-Black"), url("/fonts/MulaR-Black.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: local("Gilroy Medium"), local("Gilroy-Medium"), url("/fonts/Gilroy-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: local("Gilroy SemiBold"), local("Gilroy-SemiBold"), url("/fonts/Gilroy-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cocogoose Pro";
+  src: url("/fonts/Cocogoose-Pro-Letterpress-Regular-trial.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@theme {
+  --color-babco-red: #ed2528;
+  --color-babco-orange: #ff5d23;
+  --color-babco-blue: #5ab2ff;
+
+  /* Default font */
+  --font-sans: "Gilroy", Arial, sans-serif;
+
+  /* Font families */
+  --font-copy: "Gilroy", Arial, sans-serif;
+  --font-heading: "MulaR", Arial, sans-serif;
+  --font-about-heading: "MulaR", Arial, sans-serif;
+  --font-paragraph: "Gilroy", Arial, sans-serif;
+  --font-profile: "Gilroy", Arial, sans-serif;
+  --font-role: "Gilroy", Arial, sans-serif;
+
+  /* Additional font */
+  --font-display: "Cocogoose Pro", Arial, sans-serif;
+}
+
+/* Shared defaults still use Tailwind utilities. */
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  html {
+    @apply scroll-smooth motion-reduce:scroll-auto;
+  }
+  body {
+    @apply m-0 bg-white font-sans font-semibold text-[#252525];
+    font-style: normal;
+    letter-spacing: 0;
+    font-kerning: normal;
+  }
+  button {
+    @apply cursor-pointer;
+  }
+  button,
+  a {
+    @apply focus-visible:outline-3 focus-visible:outline-[#ab3614] focus-visible:outline-offset-5;
+  }
+  section,
+  footer,
+  #authenticity {
+    @apply scroll-mt-5 max-[640px]:scroll-mt-3;
+  }
+  button,
+  a,
+  input {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Custom CSS is limited to coordinated motion that is clearer as a small rule. */
+@layer components {
+  .site-header-anchor {
+    pointer-events: none;
+  }
+  .site-header {
+    pointer-events: auto;
+  }
+  /* Individual translate/scale properties preserve the reference image crops. */
+  [data-reveal][data-motion-ready="true"] {
+    transition:
+      opacity 0.7s ease,
+      translate 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.45s ease;
+    transition-delay: var(--reveal-delay, 0ms), var(--reveal-delay, 0ms), 0ms, 0ms;
+  }
+  [data-reveal][data-revealed="false"] {
+    opacity: 0;
+    translate: 0 22px;
+  }
+  [data-reveal][data-revealed="true"] {
+    opacity: 1;
+    translate: 0 0;
+  }
+  .page-hero > img,
+  .page-hero video {
+    animation: hero-image-enter 1.8s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+  /* Prevent a banner's minimum height from expanding its aspect-ratio width
+     beyond the tablet viewport. Keep the header and page on the same grid. */
+  .page-hero {
+    width: 100%;
+    min-width: 0;
+  }
+  .page-hero h1:not(.sr-only) {
+    animation: hero-title-enter 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.12s backwards;
+  }
+  .count-up {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    vertical-align: baseline;
+    font-variant-numeric: tabular-nums;
+  }
+  .count-up-current {
+    display: inline-block;
+  }
+  .scene-photo {
+    pointer-events: none;
+    scale: 0.985;
+    transition:
+      transform 1.1s ease-out,
+      scale 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 0.65s ease;
+  }
+  [data-rich-scene][data-active="true"] .scene-photo {
+    pointer-events: auto;
+    scale: 1;
+  }
+  .image-hover,
+  .scenic-hover > img,
+  .product-hover > img,
+  .product-hover > video {
+    transition: scale 0.7s cubic-bezier(0.22, 1, 0.36, 1), filter 0.7s ease;
+  }
+  .action-hover {
+    transition: translate 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .action-hover:focus-visible {
+    translate: 0 -2px;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    [data-rich-scene][data-active="true"] .scene-photo:hover {
+      scale: 1.035;
+      filter: brightness(1.035);
+    }
+    .image-hover:hover,
+    .scenic-hover:hover > img,
+    .product-hover:hover > img,
+    .product-hover:hover > video {
+      scale: 1.02;
+      filter: brightness(1.025);
+    }
+    .action-hover:hover {
+      translate: 0 -2px;
+      box-shadow: 0 6px 16px rgb(46 26 15 / 0.12);
+    }
+  }
+  /* Keeping panels mounted allows a smooth closing transition too. */
+  .menu-panel {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-12px) scaleY(0.97);
+    transform-origin: top center;
+    transition:
+      opacity 0.28s ease,
+      transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0s linear 0.42s;
+  }
+  .menu-panel.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scaleY(1);
+    transition-delay: 0s;
+  }
+  .menu-panel .menu-link {
+    opacity: 0;
+    transform: translateY(9px);
+    transition:
+      opacity 0.22s ease,
+      transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+      background 0.2s,
+      color 0.2s;
+  }
+  .menu-panel.is-open .menu-link {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay:
+      calc(65ms + var(--link-index, 0) * 35ms),
+      calc(65ms + var(--link-index, 0) * 35ms), 0s, 0s;
+  }
+  .menu-panel .menu-detail {
+    opacity: 0;
+    transform: translateY(10px);
+    transition:
+      opacity 0.3s,
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .menu-panel.is-open .menu-detail {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0.1s;
+  }
+
+  /* JavaScript supplies curve positions; CSS interpolates between them. */
+  .orbit-slide {
+    opacity: var(--orbit-opacity);
+    transform: translate3d(
+        calc(-50% + var(--orbit-x) * 1cqw),
+        calc(var(--orbit-y) * 1cqw),
+        0
+      )
+      scale(var(--orbit-scale));
+    transform-origin: center 43%;
+    transition:
+      transform var(--brand-slide-duration, 1300ms) cubic-bezier(0.22, 1, 0.36, 1),
+      opacity calc(var(--brand-slide-duration, 1300ms) * 0.85) ease;
+    will-change: transform, opacity;
+  }
+  @media (max-width: 640px) {
+    .orbit-slide {
+      transform-origin: center 39%;
+      transform: translate3d(
+          calc(-50% + var(--orbit-x) * 1.65cqw),
+          calc(var(--orbit-y) * 1cqw),
+          0
+        )
+        scale(var(--orbit-scale));
+    }
+  }
+
+  .scroll-reveal[data-phase="revealed"] .reveal-detail {
+    animation: section-detail-reveal 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.1s
+      both;
+  }
+  .scroll-reveal[data-phase="revealed"] .reveal-truck {
+    animation: truck-scroll-reveal 1.15s cubic-bezier(0.22, 1, 0.36, 1) 0.12s
+      both;
+  }
+  .slogan-marquee:hover .slogan-track,
+  .slogan-marquee:focus-within .slogan-track {
+    animation-play-state: paused;
+  }
+
+  /* Brand and business imagery: contained zooms and a small card lift. */
+  .brand-photo-hover,
+  .brand-card-hover {
+    --brand-image-scale: 1;
+    --brand-image-brightness: 1;
+    --brand-lift: 0px;
+    transform: translateY(var(--brand-lift));
+    transition:
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.45s ease;
+  }
+  .brand-photo-hover > img,
+  .brand-photo-hover > .business-image-layer,
+  .brand-card-hover img {
+    transform: scale(var(--brand-image-scale));
+    filter: brightness(var(--brand-image-brightness));
+    transition:
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 0.7s ease;
+  }
+
+  .business-gradient {
+    background: linear-gradient(90deg, #5ab2ff 0%, #7ba2ff 50%, #5ab2ff 100%);
+  }
+  @media (width < 1001px) {
+    .business-warehouse-copy {
+      background: linear-gradient(90deg, #5ab2ff 0%, #7ba2ff 50%, #5ab2ff 100%);
+    }
+  }
+  .business-reveal[data-phase="revealed"] .business-step {
+    animation: business-detail-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) var(--step-delay, 0ms) both;
+  }
+  .business-process-card {
+    isolation: isolate;
+    background: linear-gradient(180deg, rgb(105 183 255 / 0.96) 0%, rgb(177 157 255 / 0.45) 48%, rgb(152 159 255 / 0.12) 78%, transparent 100%);
+    transition: transform 0.4s ease, filter 0.4s ease;
+  }
+  .business-process-card::before,
+  .business-process-card::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    border-radius: inherit;
+    mask-image: linear-gradient(#000 0%, rgb(0 0 0 / 0.65) 38%, transparent 94%);
+  }
+  .business-process-card::before {
+    inset: 0;
+    border: max(1px, 0.104167cqw) solid rgb(255 255 255 / 0.9);
+  }
+  .business-process-card::after {
+    inset: max(3px, 0.260417cqw);
+    border: 1px solid rgb(255 255 255 / 0.26);
+    border-radius: max(16px, 1.09375cqw);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .business-process-card:hover {
+      transform: translateY(-5px);
+      filter: brightness(1.04);
+    }
+  }
+  .brand-photo-hover:focus-visible {
+    --brand-image-scale: 1.035;
+    --brand-image-brightness: 1.025;
+    box-shadow: 0 12px 28px rgb(40 25 15 / 0.12);
+  }
+  .brand-card-hover:focus-visible {
+    --brand-image-scale: 1.04;
+    --brand-lift: -4px;
+    box-shadow: 0 12px 26px rgb(40 25 15 / 0.1), 0 0 0 1px rgb(237 37 40 / 0.12);
+  }
+  .warehouse-photo:focus-visible {
+    box-shadow: none;
+  }
+  /* Touch visitors keep their normal tap and scroll behaviour. */
+  @media (hover: hover) and (pointer: fine) {
+    .brand-photo-hover:hover {
+      --brand-image-scale: 1.035;
+      --brand-image-brightness: 1.025;
+      box-shadow: 0 12px 28px rgb(40 25 15 / 0.12);
+    }
+    .brand-card-hover:hover {
+      --brand-image-scale: 1.04;
+      --brand-lift: -4px;
+      box-shadow: 0 12px 26px rgb(40 25 15 / 0.1), 0 0 0 1px rgb(237 37 40 / 0.12);
+    }
+    .warehouse-photo:hover {
+      box-shadow: none;
+    }
+  }
+
+  .history-list::before,
+  .history-list::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    left: 39.5349cqw;
+    top: var(--history-start, 5.114583cqw);
+    height: var(--history-length, 139.28594cqw);
+    width: 0.520833cqw;
+    background: #e9e9ee;
+    border-radius: 20px;
+  }
+  .history-list::after {
+    background: var(--timeline-gradient);
+    clip-path: inset(0 0 var(--history-hidden, 0%) 0);
+  }
+  .history-timeline [data-milestone] {
+    z-index: 1;
+  }
+  .history-year,
+  .history-event {
+    transition:
+      opacity 0.65s ease,
+      transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .history-marker {
+    transition:
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      color 0.4s ease,
+      box-shadow 0.45s ease;
+  }
+  .history-timeline[data-animated="true"] [data-reached="false"] .history-year {
+    opacity: 0;
+    transform: translateX(-22px);
+  }
+  .history-timeline[data-animated="true"] [data-reached="false"] .history-event {
+    opacity: 0;
+    transform: translateX(22px);
+  }
+  .history-timeline[data-animated="true"] [data-reached="true"] .history-event {
+    transition-delay: 0.1s;
+  }
+  .history-timeline[data-animated="true"] [data-reached="false"] .history-marker {
+    color: #cbd0d8;
+    transform: scale(0.75);
+  }
+  .history-timeline[data-animated="true"] [data-current="true"] .history-marker {
+    box-shadow: 0 0 0 7px color-mix(in srgb, currentColor 15%, transparent);
+  }
+  @media (width < 1001px) {
+    .history-list::before,
+    .history-list::after {
+      left: 10px;
+      top: var(--history-start, 12px);
+      bottom: 32px;
+      height: var(--history-length, auto);
+      width: 4px;
+    }
+    .history-timeline[data-animated="true"] [data-reached="false"] .history-year,
+    .history-timeline[data-animated="true"] [data-reached="false"] .history-event {
+      transform: translateY(16px);
+    }
+  }
+}
+
+/* Referenced by Tailwind's animate-[...] classes and the rules above. */
+@keyframes tagline-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes hero-image-enter {
+  from { scale: 1.035; }
+  to { scale: 1; }
+}
+@keyframes hero-title-enter {
+  from { opacity: 0; translate: 0 16px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes active-media-reveal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes inactive-media-fade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes section-detail-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes truck-scroll-reveal {
+  from {
+    opacity: 0;
+    transform: translateX(65px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes business-detail-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Respect the visitor's motion preference for every coordinated effect. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .scroll-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  [data-reveal][data-motion-ready],
+  .action-hover,
+  .scene-photo,
+  .image-hover,
+  .scenic-hover > img,
+  .product-hover > img,
+  .product-hover > video {
+    opacity: 1 !important;
+    translate: none !important;
+    scale: none !important;
+    filter: none !important;
+  }
+  .brand-photo-hover,
+  .brand-card-hover,
+  .brand-photo-hover > img,
+  .brand-photo-hover > .business-image-layer,
+  .business-process-card,
+  .brand-card-hover img {
+    transform: none !important;
+    filter: none !important;
+  }
+  .history-year,
+  .history-event,
+  .history-marker {
+    opacity: 1 !important;
+    transform: none !important;
+    color: inherit !important;
+    box-shadow: none !important;
+  }
+  .history-list::after {
+    clip-path: none !important;
+  }
+  .menu-panel,
+  .menu-panel .menu-link,
+  .menu-panel .menu-detail {
+    transform: none;
+  }
+}
+
+
+/* Figma counter values use Mula R Black, upright, with zero tracking.
+   Use the existing design face rather than the paragraph/Poppins override. */
+.count-up {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-style: normal;
+  letter-spacing: 0;
+  font-kerning: normal;
+  font-synthesis: none;
+}
+
+/* Mula R uses a 1000-unit cap height; match inline numerals to Gilroy prose. */
+.count-up-inline { font-size: .73em; line-height: 1; }
+
+.packaging-section { padding:3.385417cqw; background:#ffebc8; }
+.packaging-panel { display:grid; grid-template-columns:minmax(0,61%) minmax(0,39%); grid-template-rows:auto 1fr; padding:1.4cqw; border-radius:3.125cqw; background:linear-gradient(100deg,#ff5d23,#ed4100); }
+.packaging-headings { padding:.5cqw 1.5cqw 1.6cqw; color:white; }
+.packaging-headings h2,.packaging-headings h3 { font-size:4.6cqw; line-height:1.3; }
+.packaging-headings h3 { margin-top:0; }
+.packaging-copy { grid-column:1; padding:1.4cqw 1.5cqw 2.3cqw; border-radius:1.5cqw 0 0 1.5cqw; background:#ffebc8; color:black; font-size:1.302083cqw; line-height:1.45; }
+.packaging-copy p + p { margin-top:1.7cqw; }
+.packaging-photo { grid-column:2; grid-row:1 / span 2; align-self:stretch; margin-top:7.7cqw; padding:1.1cqw; border-radius:1.5cqw 1.5cqw 1.5cqw 0; background:#ffebc8; overflow:hidden; min-height:30cqw; }
+.packaging-photo img { display:block; width:100%; height:100%; object-fit:cover; object-position:65% center; border-radius:.7cqw; }
+@media(max-width:1000px) {
+ .packaging-section { padding:28px 20px; }
+ .packaging-panel { grid-template-columns:minmax(0,1fr); padding:16px; border-radius:28px; }
+ .packaging-headings { padding:8px 8px 20px; }
+ .packaging-headings h2,.packaging-headings h3 { font-size:clamp(22px,4.6vw,42px); line-height:1.3; }
+ .packaging-headings h3 { margin-top:0; }
+ .packaging-copy { grid-column:1; padding:20px; border-radius:16px; font-size:16px; line-height:1.5; }
+ .packaging-copy p + p { margin-top:20px; }
+ .packaging-photo { grid-column:1; grid-row:auto; margin-top:16px; padding:8px; border-radius:16px; min-height:0; aspect-ratio:4/3; }
+ .packaging-photo img { border-radius:10px; }
+}
+@media(max-width:400px) { .packaging-section { padding:24px 12px; } .packaging-panel { padding:12px; } .packaging-copy { padding:16px; font-size:15px; } }
+@media(min-width:1001px) {
+ .packaging-headings h2,.packaging-headings h3 { font-size:3.478125cqw; line-height:1.3; white-space:nowrap; }
+ .packaging-photo { margin-top:7.7cqw; }
+}
+
+.packaging-photo-window { width:100%; height:100%; overflow:hidden; border-radius:.7cqw; }
+/* .packaging-photo img { scale:1.65; transform-origin:65% 70%; } */
+@media(max-width:1000px) { .packaging-photo-window { border-radius:10px; } }
+

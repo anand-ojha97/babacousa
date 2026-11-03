@@ -1,0 +1,108 @@
+
+    /* Standalone HTML review. All styles are scoped to this section for the
+       subsequent React component. The two supplied maps are embedded offline. */
+    .babco-network, .babco-network * { box-sizing: border-box; }
+    .babco-network {
+      --ink: #252421; --muted: #75746f; --accent: #ef702d;
+      --line: #e7e5e0; --paper: #fff; --speed: 700ms;
+      color: var(--ink); background: var(--paper);
+      font-family: var(--font-copy, Poppins), sans-serif;
+      padding: 0; margin-top: 28px;
+      width: 100%; min-width: 0;
+    }
+    .babco-network .network-inner { max-width: 1500px; margin-inline: auto; }
+    .babco-network .section-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; margin-bottom: 40px; }
+    .babco-network .eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 16px; font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+    .babco-network .eyebrow::before { content: ''; width: 21px; height: 3px; background: var(--accent); }
+    .babco-network h1 { margin: 0; font-size: clamp(28px, 3.4vw, 49px); font-weight: 600; line-height: 1.12; letter-spacing: -.045em; }
+    .babco-network .intro { max-width: 300px; margin: 0 0 3px; color: var(--muted); font-size: 14px; line-height: 1.65; }
+    .babco-network .instruction { display: block; color: #373632; }
+    .babco-network .mobile-instruction { display: none; }
+    .babco-network .map-shell { position: relative; width: 90%; max-width: 1500px; margin-inline: auto; isolation: isolate; }
+    .babco-network .map-svg { width: 100%; height: auto; aspect-ratio: 2048/1031; display: block; overflow: visible; touch-action: pan-y; }
+    .babco-network .map-base, .babco-network .photo-layer { pointer-events: none; }
+    .babco-network .photo-layer { opacity: 0; transition: opacity 200ms ease; will-change: opacity; }
+    .babco-network .photo-layer.is-active { opacity: 1; }
+    .babco-network .landmark-photo { transform-box: view-box; }
+    .babco-network .region-target { cursor: pointer; fill: transparent; stroke: transparent; stroke-width: 4; pointer-events: all; }
+    .babco-network .region-target:focus { outline: none; }
+    .babco-network .region-target:focus-visible { stroke: var(--accent); stroke-width: 5; stroke-dasharray: 8 7; }
+    .babco-network .label-target { cursor: pointer; fill: transparent; pointer-events: all; }
+    .babco-network .annotation-mask { opacity: 0; transition: opacity 180ms ease; }
+    .babco-network .annotation-mask.is-active { opacity: 1; }
+    .babco-network .city-nav { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); margin-top: 38px; border-block: 1px solid var(--line); }
+    .babco-network .city-button { position: relative; display: flex; align-items: center; gap: 13px; min-height: 74px; padding: 15px 20px; border: 0; background: transparent; text-align: left; color: var(--ink); font: inherit; cursor: pointer; transition: background 180ms ease; }
+    .babco-network .city-button + .city-button::before { position: absolute; content: ''; left: 0; top: 22px; bottom: 22px; width: 1px; background: var(--line); }
+    .babco-network .city-button::after { content: ''; position: absolute; left: 20px; right: 20px; bottom: -1px; height: 3px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 260ms ease; }
+    .babco-network .city-button:hover, .babco-network .city-button.is-active { background: #faf9f6; }
+    .babco-network .city-button.is-active::after { transform: scaleX(1); }
+    .babco-network .city-button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; z-index: 1; }
+    .babco-network .city-dot { width: 9px; height: 9px; flex: 0 0 9px; border-radius: 50%; background: var(--region-color); box-shadow: 0 0 0 1px #00000010; }
+    .babco-network .city-name { font-size: 14px; font-weight: 600; line-height: 1.3; }
+    .babco-network .state-code { font-size: 12px; color: var(--muted); display: block; font-weight: 400; margin-top: 4px; }
+    .babco-network .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    @media (max-width: 1000px) {
+      .babco-network .city-button { padding-inline: 12px; gap: 8px; }
+      .babco-network .city-name { font-size: 13px; }
+      .babco-network .city-button::after { left: 12px; right: 12px; }
+    }
+    @media (max-width: 640px) {
+      .babco-network { padding-top: 0; }
+      .babco-network .map-shell { width: 100%; }
+      .babco-network .section-heading { display: block; margin-bottom: 27px; }
+      .babco-network .eyebrow { font-size: 10px; margin-bottom: 14px; }
+      .babco-network h1 { font-size: 31px; }
+      .babco-network .intro { margin-top: 15px; font-size: 13px; }
+      .babco-network .desktop-instruction { display: none; }
+      .babco-network .mobile-instruction { display: block; }
+      .babco-network .city-nav { grid-template-columns: repeat(2,minmax(0,1fr)); margin-top: 24px; }
+      .babco-network .city-button { min-height: 67px; padding: 13px 10px; }
+      .babco-network .city-button:nth-child(n+3) { border-top: 1px solid var(--line); }
+      .babco-network .city-button:nth-child(odd)::before { display: none; }
+      .babco-network .city-button:last-child { grid-column: 1/-1; }
+      .babco-network .city-name { font-size: 14px; }
+      .babco-network .state-code { display: inline; margin-left: 6px; }
+      .babco-network .city-button::after { left: 10px; right: 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .babco-network *, .babco-network *::after { transition-duration: 0ms !important; animation-duration: 0ms !important; }
+    }
+  
+
+/* Reserve space for the copy and city controls, then fit the map into the
+   remaining viewport height. SVG viewBox scaling keeps its proportions. */
+.locations-section {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: clamp(8px, 1.4svh, 16px);
+  height: calc(100svh - 10px);
+  padding: clamp(50px, 2svh, 28px) 3.65cqw;
+}
+.locations-section .babco-network {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: clamp(8px, 1.4svh, 16px);
+  min-height: 0;
+  margin-top: 0;
+}
+.locations-section .map-shell {
+  width: 100%;
+  max-width: 1500px;
+  min-height: 0;
+  height: 100%;
+}
+.locations-section .map-svg {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+}
+.locations-section .city-nav { margin-top: 0; }
+.locations-section .city-button { min-height: 60px; padding-block: 10px; }
+@media (max-width: 640px) {
+  .locations-section {
+    height: min(640px, calc(100svh - 24px));
+    padding: 16px 22px;
+  }
+  .locations-section .city-button { min-height: 50px; padding-block: 8px; }
+}
